@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Counting Process | SOC6280: Survival Analysis: Practice</title>
+  <meta name="description" content="Survival handbook" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Counting Process | SOC6280: Survival Analysis: Practice" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Survival handbook" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Counting Process | SOC6280: Survival Analysis: Practice" />
+  
+  <meta name="twitter:description" content="Survival handbook" />
+  
+
+<meta name="author" content="Hyojun Park" />
+
+
+<meta name="date" content="2024-10-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="survival-analyses-introduction.html"/>
+<link rel="next" href="survival-models-specification-estimation-and-interpretation.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/Leaflet.Sync-0.0.5/L.Map.Sync.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Survival Analysis Workbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="bias.html"><a href="bias.html"><i class="fa fa-check"></i><b>2</b> Bias</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bias.html"><a href="bias.html#example-different-level-of-analysis"><i class="fa fa-check"></i><b>2.1</b> Example: Different level of analysis</a></li>
+<li class="chapter" data-level="2.2" data-path="bias.html"><a href="bias.html#bias-due-to-omitted-confounders"><i class="fa fa-check"></i><b>2.2</b> Bias due to omitted confounders</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="bias.html"><a href="bias.html#gold-standard"><i class="fa fa-check"></i><b>2.2.1</b> Gold standard</a></li>
+<li class="chapter" data-level="2.2.2" data-path="bias.html"><a href="bias.html#misspecified-model-a-confounder-c-was-omitted-from-the-model"><i class="fa fa-check"></i><b>2.2.2</b> Misspecified model: a confounder, <span class="math inline">\(C\)</span>, was omitted from the model</a></li>
+<li class="chapter" data-level="2.2.3" data-path="bias.html"><a href="bias.html#bias-away-from-or-towards-the-null"><i class="fa fa-check"></i><b>2.2.3</b> Bias “away from” or “towards” the null?</a></li>
+<li class="chapter" data-level="2.2.4" data-path="bias.html"><a href="bias.html#a-c-is-not-a-confounder-on-x-and-y"><i class="fa fa-check"></i><b>2.2.4</b> A <span class="math inline">\(C\)</span> is not a confounder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="bias.html"><a href="bias.html#correct-model-specification-without-c"><i class="fa fa-check"></i><b>2.2.5</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="bias.html"><a href="bias.html#misspecified-model-with-c"><i class="fa fa-check"></i><b>2.2.6</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="bias.html"><a href="bias.html#a-c-is-a-colloder-on-x-and-y"><i class="fa fa-check"></i><b>2.2.7</b> A <span class="math inline">\(C\)</span> is a colloder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="2.2.8" data-path="bias.html"><a href="bias.html#correct-model-specification-without-c-1"><i class="fa fa-check"></i><b>2.2.8</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.2.9" data-path="bias.html"><a href="bias.html#misspecified-model-with-c-1"><i class="fa fa-check"></i><b>2.2.9</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="bias.html"><a href="bias.html#overadjustment-bias"><i class="fa fa-check"></i><b>2.3</b> Overadjustment bias</a></li>
+<li class="chapter" data-level="2.4" data-path="bias.html"><a href="bias.html#total-effect"><i class="fa fa-check"></i><b>2.4</b> Total effect</a></li>
+<li class="chapter" data-level="2.5" data-path="bias.html"><a href="bias.html#overadjustment"><i class="fa fa-check"></i><b>2.5</b> Overadjustment</a></li>
+<li class="chapter" data-level="2.6" data-path="bias.html"><a href="bias.html#logistic-models"><i class="fa fa-check"></i><b>2.6</b> Logistic models</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="bias.html"><a href="bias.html#sex-as-a-confounder-c"><i class="fa fa-check"></i><b>2.6.1</b> Sex as a Confounder, <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.6.2" data-path="bias.html"><a href="bias.html#sex-as-a-moderator-m"><i class="fa fa-check"></i><b>2.6.2</b> Sex as a Moderator, <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html"><i class="fa fa-check"></i><b>3</b> Survival Analyses: Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#set-packages-and-library"><i class="fa fa-check"></i><b>3.1</b> Set packages and library</a></li>
+<li class="chapter" data-level="3.2" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#dataset"><i class="fa fa-check"></i><b>3.2</b> dataset</a></li>
+<li class="chapter" data-level="3.3" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#nonparametric-estimation"><i class="fa fa-check"></i><b>3.3</b> Nonparametric estimation</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#data-for-nonparametric-models"><i class="fa fa-check"></i><b>3.3.1</b> Data for nonparametric models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#kaplan-meier-estimator"><i class="fa fa-check"></i><b>3.3.2</b> Kaplan-Meier estimator</a></li>
+<li class="chapter" data-level="3.3.3" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#nelson-aalen-estimator"><i class="fa fa-check"></i><b>3.3.3</b> Nelson-Aalen estimator</a></li>
+<li class="chapter" data-level="3.3.4" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#comparisons-by-groups"><i class="fa fa-check"></i><b>3.3.4</b> Comparisons by groups</a></li>
+<li class="chapter" data-level="3.3.5" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#better-km-figures"><i class="fa fa-check"></i><b>3.3.5</b> Better KM figures</a></li>
+<li class="chapter" data-level="3.3.6" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#nonparametric-models-using-a-child-dataset-from-eha"><i class="fa fa-check"></i><b>3.3.6</b> Nonparametric models using a <span class="math inline">\(child\)</span> dataset from eha</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#proportional-hazards-and-cox-regression"><i class="fa fa-check"></i><b>3.4</b> Proportional Hazards and Cox Regression</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#a-visual-check-for-a-proportionality-assumption"><i class="fa fa-check"></i><b>3.4.1</b> A visual check for a proportionality assumption</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#parametric-estimation"><i class="fa fa-check"></i><b>3.5</b> Parametric estimation</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#weibull-model"><i class="fa fa-check"></i><b>3.5.1</b> Weibull model</a></li>
+<li class="chapter" data-level="3.5.2" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#gompertz-model"><i class="fa fa-check"></i><b>3.5.2</b> Gompertz model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="counting-process.html"><a href="counting-process.html"><i class="fa fa-check"></i><b>4</b> Counting Process</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="counting-process.html"><a href="counting-process.html#set-packages-and-library-1"><i class="fa fa-check"></i><b>4.1</b> Set packages and library</a></li>
+<li class="chapter" data-level="4.2" data-path="counting-process.html"><a href="counting-process.html#example"><i class="fa fa-check"></i><b>4.2</b> Example</a></li>
+<li class="chapter" data-level="4.3" data-path="counting-process.html"><a href="counting-process.html#practice-addhealth-public-datasets"><i class="fa fa-check"></i><b>4.3</b> Practice: AddHealth Public datasets</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="counting-process.html"><a href="counting-process.html#generate-a-complete-framework-with-aid-and-wave-optional"><i class="fa fa-check"></i><b>4.3.1</b> Generate a complete framework with <em>AID</em> and <em>wave</em> (Optional)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="counting-process.html"><a href="counting-process.html#time-variant-variables-from-each-wave"><i class="fa fa-check"></i><b>4.3.2</b> Time-variant variables from each wave</a></li>
+<li class="chapter" data-level="4.3.3" data-path="counting-process.html"><a href="counting-process.html#time-invariant"><i class="fa fa-check"></i><b>4.3.3</b> Time-invariant</a></li>
+<li class="chapter" data-level="4.3.4" data-path="counting-process.html"><a href="counting-process.html#merging-datasets"><i class="fa fa-check"></i><b>4.3.4</b> Merging datasets</a></li>
+<li class="chapter" data-level="4.3.5" data-path="counting-process.html"><a href="counting-process.html#define-event-enter-and-exit"><i class="fa fa-check"></i><b>4.3.5</b> Define <em>event</em>, <em>enter</em>, and <em>exit</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html"><i class="fa fa-check"></i><b>5</b> Survival models: specification, estimation, and interpretation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#nonparametric-models"><i class="fa fa-check"></i><b>5.1</b> Nonparametric models</a></li>
+<li class="chapter" data-level="5.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#semi-parametric-models-cox-regression"><i class="fa fa-check"></i><b>5.2</b> Semi-parametric models: Cox Regression</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification"><i class="fa fa-check"></i><b>5.2.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.2.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation"><i class="fa fa-check"></i><b>5.2.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.2.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretations"><i class="fa fa-check"></i><b>5.2.3</b> Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#logistic-regression"><i class="fa fa-check"></i><b>5.3</b> Logistic regression</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-1"><i class="fa fa-check"></i><b>5.3.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.3.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-1"><i class="fa fa-check"></i><b>5.3.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.3.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretation"><i class="fa fa-check"></i><b>5.3.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#linear-regression"><i class="fa fa-check"></i><b>5.4</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-2"><i class="fa fa-check"></i><b>5.4.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.4.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-2"><i class="fa fa-check"></i><b>5.4.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.4.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretation-1"><i class="fa fa-check"></i><b>5.4.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#weibull-model-1"><i class="fa fa-check"></i><b>5.5</b> Weibull model</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-3"><i class="fa fa-check"></i><b>5.5.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.5.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-3"><i class="fa fa-check"></i><b>5.5.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.5.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretations-1"><i class="fa fa-check"></i><b>5.5.3</b> Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#exponential-model"><i class="fa fa-check"></i><b>5.6</b> Exponential model</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-4"><i class="fa fa-check"></i><b>5.6.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.6.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-4"><i class="fa fa-check"></i><b>5.6.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.6.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretations-2"><i class="fa fa-check"></i><b>5.6.3</b> Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#gompertz-model-1"><i class="fa fa-check"></i><b>5.7</b> Gompertz model</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-5"><i class="fa fa-check"></i><b>5.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.7.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-5"><i class="fa fa-check"></i><b>5.7.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.7.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretations-3"><i class="fa fa-check"></i><b>5.7.3</b> Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#graphs"><i class="fa fa-check"></i><b>5.8</b> Graphs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html"><i class="fa fa-check"></i><b>6</b> Cox Proportional Hazard Modeling</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#setup-working-datasets"><i class="fa fa-check"></i><b>6.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-proportional-hazard-models-example"><i class="fa fa-check"></i><b>6.2</b> Cox Proportional Hazard Models: Example</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-model-specification"><i class="fa fa-check"></i><b>6.2.1</b> Cox model specification</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-1-no-covariates"><i class="fa fa-check"></i><b>6.2.2</b> Model 1: No covariates</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-2-categorical-covariate-region"><i class="fa fa-check"></i><b>6.2.3</b> Model 2: Categorical covariate: region</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-3-continuous-covariate-imr.birth"><i class="fa fa-check"></i><b>6.2.4</b> Model 3: Continuous covariate: imr.birth</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#interpretation-2"><i class="fa fa-check"></i><b>6.3</b> Interpretation</a></li>
+<li class="chapter" data-level="6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.4</b> Proportional hazard (PH) assumption</a></li>
+<li class="chapter" data-level="6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#extended-cox-model"><i class="fa fa-check"></i><b>6.5</b> Extended Cox model</a></li>
+<li class="chapter" data-level="6.6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#evaluating-the-proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.6</b> Evaluating the Proportional hazard (PH) assumption</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#graphical-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Graphical evaluation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#goodness-of-fit-gof"><i class="fa fa-check"></i><b>6.6.2</b> Goodness-of-fit (GOF)</a></li>
+<li class="chapter" data-level="6.6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#time-dependent-variable-approaches"><i class="fa fa-check"></i><b>6.6.3</b> Time-dependent variable approaches</a></li>
+<li class="chapter" data-level="6.6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-influential-observations"><i class="fa fa-check"></i><b>6.6.4</b> Testing for Influential Observations</a></li>
+<li class="chapter" data-level="6.6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-non-linearlity"><i class="fa fa-check"></i><b>6.6.5</b> Testing for Non-linearlity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html"><i class="fa fa-check"></i><b>7</b> Accounting for Heterogeneity</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#setup-working-datasets-1"><i class="fa fa-check"></i><b>7.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#an-introductory-example"><i class="fa fa-check"></i><b>7.2</b> An introductory Example</a></li>
+<li class="chapter" data-level="7.3" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#working-with-heterogeneity"><i class="fa fa-check"></i><b>7.3</b> Working with heterogeneity</a></li>
+<li class="chapter" data-level="7.4" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#stratification"><i class="fa fa-check"></i><b>7.4</b> Stratification</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#generalized-stratified-models"><i class="fa fa-check"></i><b>7.4.1</b> Generalized stratified models</a></li>
+<li class="chapter" data-level="7.4.2" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#group_by-analysis-dplyr"><i class="fa fa-check"></i><b>7.4.2</b> <code>group_by</code> analysis (<code>dplyr</code>)</a></li>
+<li class="chapter" data-level="7.4.3" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#strata-in-coxph"><i class="fa fa-check"></i><b>7.4.3</b> <code>strata</code> in <code>coxph</code></a></li>
+<li class="chapter" data-level="7.4.4" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#strata-in-coxph-with-interaction-terms"><i class="fa fa-check"></i><b>7.4.4</b> <code>strata</code> in <code>coxph</code> with interaction terms</a></li>
+<li class="chapter" data-level="7.4.5" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#weibull-ph-models-with-or-without-stratification"><i class="fa fa-check"></i><b>7.4.5</b> Weibull PH models with or without stratification</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#frailty-models"><i class="fa fa-check"></i><b>7.5</b> Frailty models</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#simple-frailty-model"><i class="fa fa-check"></i><b>7.5.1</b> Simple Frailty Model</a></li>
+<li class="chapter" data-level="7.5.2" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#shared-frailty-model"><i class="fa fa-check"></i><b>7.5.2</b> Shared Frailty Model</a></li>
+<li class="chapter" data-level="7.5.3" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#cox-model-specification-1"><i class="fa fa-check"></i><b>7.5.3</b> Cox model specification</a></li>
+<li class="chapter" data-level="7.5.4" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#mixed-effects-cox-model-specification"><i class="fa fa-check"></i><b>7.5.4</b> Mixed effects Cox model specification</a></li>
+<li class="chapter" data-level="7.5.5" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#models-without-considering-fraility"><i class="fa fa-check"></i><b>7.5.5</b> Models without considering fraility</a></li>
+<li class="chapter" data-level="7.5.6" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#coxme-package-for-frailty-models"><i class="fa fa-check"></i><b>7.5.6</b> <code>coxme</code> package for frailty models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html"><i class="fa fa-check"></i><b>8</b> More Topics on Survival Models</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#setup-working-datasets-2"><i class="fa fa-check"></i><b>8.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="8.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#why-we-call-cox-model-as-semi-parametric-model"><i class="fa fa-check"></i><b>8.2</b> Why we call Cox model as semi-parametric model?</a></li>
+<li class="chapter" data-level="8.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#why-the-cox-ph-model-is-so-popular"><i class="fa fa-check"></i><b>8.3</b> Why the Cox PH model is so popular</a></li>
+<li class="chapter" data-level="8.4" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#adjusted-survival-curves-using-the-cox-ph-model"><i class="fa fa-check"></i><b>8.4</b> Adjusted Survival Curves using the Cox PH model</a></li>
+<li class="chapter" data-level="8.5" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#survival-model-selection"><i class="fa fa-check"></i><b>8.5</b> Survival model selection</a></li>
+<li class="chapter" data-level="8.6" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#likelihood-and-partial-likelihood"><i class="fa fa-check"></i><b>8.6</b> Likelihood and partial likelihood</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml"><i class="fa fa-check"></i><b>8.6.1</b> Estimation of the Cox PH model using Maximum likelihood (ML)</a></li>
+<li class="chapter" data-level="8.6.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#more-about-hazard-ratio"><i class="fa fa-check"></i><b>8.6.2</b> More about Hazard ratio</a></li>
+<li class="chapter" data-level="8.6.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>8.6.3</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="8.6.4" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#partial-likelihood-estimation"><i class="fa fa-check"></i><b>8.6.4</b> Partial likelihood estimation</a></li>
+<li class="chapter" data-level="8.6.5" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#dependence-among-the-observations"><i class="fa fa-check"></i><b>8.6.5</b> Dependence among the observations</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#tied-or-discrete-data-analysis"><i class="fa fa-check"></i><b>8.7</b> Tied or Discrete Data Analysis</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#example-recidivism-in-the-u.s."><i class="fa fa-check"></i><b>8.7.1</b> Example: Recidivism in the U.S.</a></li>
+<li class="chapter" data-level="8.7.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#data-management"><i class="fa fa-check"></i><b>8.7.2</b> Data management</a></li>
+<li class="chapter" data-level="8.7.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#the-treatment-of-ties"><i class="fa fa-check"></i><b>8.7.3</b> The treatment of ties</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#the-discrete-method"><i class="fa fa-check"></i><b>8.8</b> The discrete method</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#continuous-and-discrete-models"><i class="fa fa-check"></i><b>8.8.1</b> Continuous and Discrete Models</a></li>
+<li><a href="more-topics-on-survival-models.html#interval-censoring" id="toc-interval-censoring"><span class="toc-section-number">8.8.2</span> Interval censoring<br />
+</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>9</b> Add Health Project</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>9.1</b> Library</a></li>
+<li class="chapter" data-level="9.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>9.2</b> Access datasets</a></li>
+<li class="chapter" data-level="9.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>9.3</b> Load 5-wave sample</a></li>
+<li class="chapter" data-level="9.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>9.4</b> Long-form dataset (wave-person)</a></li>
+<li class="chapter" data-level="9.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>9.5</b> Exploring variables in Add Health</a></li>
+<li class="chapter" data-level="9.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>9.6</b> Outcomes, exposures, and confounders</a></li>
+<li class="chapter" data-level="9.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>9.7</b> Demographic variables - time-invariant</a></li>
+<li class="chapter" data-level="9.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets-1"><i class="fa fa-check"></i><b>9.8</b> Merging datasets</a></li>
+<li class="chapter" data-level="9.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>9.9</b> Data management, recoding, and so on</a>
+<ul>
+<li class="chapter" data-level="9.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>9.9.1</b> BMI</a></li>
+<li class="chapter" data-level="9.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>9.9.2</b> Sampling weights</a></li>
+<li class="chapter" data-level="9.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>9.9.3</b> Multiple imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>9.10</b> Analytic approach</a>
+<ul>
+<li class="chapter" data-level="9.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>9.10.1</b> A linear regression with the current dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SOC6280: Survival Analysis: Practice</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="counting-process" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Counting Process<a href="counting-process.html#counting-process" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this section, we will cover 1) survival data structure (i.e., counting process) and 2) modeling survival data.</p>
+<div id="set-packages-and-library-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Set packages and library<a href="counting-process.html#set-packages-and-library-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="example" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Example<a href="counting-process.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>“The <strong>oldmort</strong> dataset in <strong>eha</strong> package contains life histories of people followed from their 60th birthday to their 100th, or until death, born between June 28, 1765 and December 31, 1820 in Skellefteå. The variable <em>enter</em> is age at start of the given interval, <em>exit</em> contains the age at the end of the interval. We need to calculate follow-up time since age 60 - 60 is subtracted from <em>enter</em> and <em>exit</em>. The variable <em>event</em> is an indicator of death at the duration given by exit.” <a href="https://www.rdocumentation.org/packages/eha/versions/2.8.5/topics/oldmort" class="uri">https://www.rdocumentation.org/packages/eha/versions/2.8.5/topics/oldmort</a> [Göran Broström, <a href="http://ehar.se/r/ehar2/parametric.html" class="uri">http://ehar.se/r/ehar2/parametric.html</a>]</p>
+</blockquote>
+<p>Here are the summary of the <strong>oldmort</strong> dataset.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="counting-process.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb96-2"><a href="counting-process.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="counting-process.html#cb96-3" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span>
+<span id="cb96-4"><a href="counting-process.html#cb96-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-5"><a href="counting-process.html#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort01) <span class="co"># descriptive statistics</span></span></code></pre></div>
+<pre><code>##        id                enter            exit          event        
+##  Min.   :765000603   Min.   :60.00   Min.   : 60.00   Mode :logical  
+##  1st Qu.:797001170   1st Qu.:60.00   1st Qu.: 63.88   FALSE:4524     
+##  Median :804001545   Median :60.07   Median : 68.51   TRUE :1971     
+##  Mean   :803652514   Mean   :64.07   Mean   : 69.89                  
+##  3rd Qu.:812001564   3rd Qu.:66.88   3rd Qu.: 74.73                  
+##  Max.   :826002672   Max.   :94.51   Max.   :100.00                  
+##                                                                      
+##    birthdate         m.id                f.id               sex      
+##  Min.   :1765   Min.   :     6039   Min.   :     2458   male  :2884  
+##  1st Qu.:1797   1st Qu.:766000610   1st Qu.:763000610   female:3611  
+##  Median :1805   Median :775000742   Median :772000649                
+##  Mean   :1804   Mean   :771271398   Mean   :762726961                
+##  3rd Qu.:1812   3rd Qu.:783000743   3rd Qu.:780001077                
+##  Max.   :1820   Max.   :802000669   Max.   :797001468                
+##                 NA&#39;s   :3155        NA&#39;s   :3310                     
+##         civ           ses.50      birthplace     imr.birth           region    
+##  unmarried: 557   middle : 233   parish:3598   Min.   : 4.348   town    : 657  
+##  married  :3638   unknown:2565   region:1503   1st Qu.:12.709   industry:2214  
+##  widow    :2300   upper  :  55   remote:1394   Median :14.234   rural   :3624  
+##                   farmer :1562                 Mean   :15.209                  
+##                   lower  :2080                 3rd Qu.:17.718                  
+##                                                Max.   :31.967                  
+## </code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="counting-process.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(oldmort01) <span class="co"># structure</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    6495 obs. of  13 variables:
+##  $ id        : int  765000603 765000669 768000648 770000562 770000707 771000617 771000619 771000638 771000670 772000622 ...
+##  $ enter     : num  94.5 94.3 91.1 89 90 ...
+##  $ exit      : num  95.8 95.8 91.9 89.6 90.2 ...
+##  $ event     : logi  TRUE TRUE TRUE TRUE TRUE TRUE ...
+##  $ birthdate : num  1765 1766 1769 1771 1770 ...
+##  $ m.id      : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ f.id      : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ sex       : Factor w/ 2 levels &quot;male&quot;,&quot;female&quot;: 2 2 2 2 2 2 1 2 2 2 ...
+##  $ civ       : Factor w/ 3 levels &quot;unmarried&quot;,&quot;married&quot;,..: 3 1 3 3 3 3 3 3 3 3 ...
+##  $ ses.50    : Factor w/ 5 levels &quot;middle&quot;,&quot;unknown&quot;,..: 2 2 2 2 1 2 5 2 2 2 ...
+##  $ birthplace: Factor w/ 3 levels &quot;parish&quot;,&quot;region&quot;,..: 3 1 1 1 2 1 2 1 1 1 ...
+##  $ imr.birth : num  22.2 17.7 12.7 16.9 12 ...
+##  $ region    : Factor w/ 3 levels &quot;town&quot;,&quot;industry&quot;,..: 3 2 3 2 3 3 3 2 3 2 ...</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="counting-process.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(oldmort01) <span class="co"># preview</span></span></code></pre></div>
+<pre><code>##          id  enter   exit event birthdate m.id f.id    sex       civ  ses.50
+## 1 765000603 94.510 95.813  TRUE  1765.490   NA   NA female     widow unknown
+## 2 765000669 94.266 95.756  TRUE  1765.734   NA   NA female unmarried unknown
+## 3 768000648 91.093 91.947  TRUE  1768.907   NA   NA female     widow unknown
+## 4 770000562 89.009 89.593  TRUE  1770.991   NA   NA female     widow unknown
+## 5 770000707 89.998 90.211  TRUE  1770.002   NA   NA female     widow  middle
+## 6 771000617 88.429 89.762  TRUE  1771.571   NA   NA female     widow unknown
+##   birthplace imr.birth   region
+## 1     remote  22.20000    rural
+## 2     parish  17.71845 industry
+## 3     parish  12.70903    rural
+## 4     parish  16.90544 industry
+## 5     region  11.97183    rural
+## 6     parish  13.08594    rural</code></pre>
+<p>To check how this dataset is constructed, we will need to identify any duplicated <em>id</em>.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="counting-process.html#cb102-1" aria-hidden="true" tabindex="-1"></a>dup01 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">table</span>(oldmort01<span class="sc">$</span>id))</span>
+<span id="cb102-2"><a href="counting-process.html#cb102-2" aria-hidden="true" tabindex="-1"></a>dup02 <span class="ot">&lt;-</span> dup01[<span class="fu">order</span>(<span class="sc">-</span>dup01<span class="sc">$</span>Freq), ]</span></code></pre></div>
+<p>In the following example, please check</p>
+<ul>
+<li>When is a new record for the same <em>id</em> created?</li>
+<li>What are the time-invariant variables?</li>
+<li>What are the time-variant variables?</li>
+<li>What does it mean by “TRUE” or “FALSE” in <em>event</em>?</li>
+<li>How does the time of <em>enter</em> and <em>exit</em> connected with each other? What would happen if there is a gap between two records?</li>
+</ul>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="counting-process.html#cb103-1" aria-hidden="true" tabindex="-1"></a>dup03 <span class="ot">&lt;-</span> oldmort01[oldmort01<span class="sc">$</span>id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;789000771&quot;</span>, <span class="st">&quot;796001158&quot;</span>),  ]</span>
+<span id="cb103-2"><a href="counting-process.html#cb103-2" aria-hidden="true" tabindex="-1"></a>dup03</span></code></pre></div>
+<pre><code>##             id  enter   exit event birthdate m.id f.id    sex       civ  ses.50
+## 536  789000771 70.570 72.059 FALSE  1789.430   NA   NA female   married unknown
+## 537  789000771 72.059 79.391 FALSE  1789.430   NA   NA female   married unknown
+## 538  789000771 79.391 79.947 FALSE  1789.430   NA   NA female     widow unknown
+## 539  789000771 80.010 83.750 FALSE  1789.430   NA   NA female     widow unknown
+## 540  789000771 84.358 87.274  TRUE  1789.430   NA   NA female unmarried unknown
+## 1472 796001158 63.531 64.020 FALSE  1796.469   NA   NA   male   married  farmer
+## 1473 796001158 64.020 65.020 FALSE  1796.469   NA   NA   male     widow  farmer
+## 1474 796001158 65.020 70.019 FALSE  1796.469   NA   NA   male     widow  farmer
+## 1475 796001158 70.019 80.021 FALSE  1796.469   NA   NA   male     widow  farmer
+## 1476 796001158 80.021 83.531 FALSE  1796.469   NA   NA   male     widow  farmer
+##      birthplace imr.birth region
+## 536      region  19.92337  rural
+## 537      region  19.92337  rural
+## 538      region  19.92337  rural
+## 539      region  19.92337  rural
+## 540      region  19.92337  rural
+## 1472     parish  19.92337  rural
+## 1473     parish  19.92337  rural
+## 1474     parish  19.92337  rural
+## 1475     parish  19.92337  rural
+## 1476     parish  19.92337  rural</code></pre>
+</div>
+<div id="practice-addhealth-public-datasets" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Practice: AddHealth Public datasets<a href="counting-process.html#practice-addhealth-public-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are many ways to construct long-form datasets with counting process. The following procedure is just one way to achieve the goal.</p>
+<p>Here are a couple of things to construct a long-form dataset with counting process.</p>
+<ul>
+<li>In practice, measuring outcomes, exposures, confounders, and other variables involves a separate procedure for each one of variables. I personally prefer to divide each measurement as time-variant and time-invariant datasets, respectively.</li>
+<li>Two variables should be <strong>ALWAYS</strong> included in every single dataset you are working on - <em>AID</em> and <em>wave</em> (or any other <em>Time</em> variable).</li>
+<li>Datasets with time-invariant variables can be merged by <em>AID</em>, while those with time-variant variables need to be merged by <em>AID</em> and <em>wave</em>.</li>
+<li>Time-varying variables will be assigned a single variable name. Let’s say we are to use self-rated health with a variable name of <em>SRH</em> for five waves. The dataset should contain <em>AID</em>, <em>wave</em>, and <em>SRH</em>. The SRH in each wave should be assigned the same name, <em>SRH</em>, and the wave information will be on <em>wave</em>. This way, you can simply “stack up” all 5-wave data to construct the long-form datasets.</li>
+</ul>
+<p>First, each <em>rda</em> dataset will be loaded and then saved as <strong>WAVE0X</strong>. After assigning a <em>wave</em> variable for each of them, we will keep the <strong>WAVE0X</strong> dataset and <em>WX</em> datasets only.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="counting-process.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1st wave</span></span>
+<span id="cb105-2"><a href="counting-process.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda&quot;</span>)</span>
+<span id="cb105-3"><a href="counting-process.html#cb105-3" aria-hidden="true" tabindex="-1"></a>wave01 <span class="ot">&lt;-</span> da21600<span class="fl">.0001</span></span>
+<span id="cb105-4"><a href="counting-process.html#cb105-4" aria-hidden="true" tabindex="-1"></a>wave01<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb105-5"><a href="counting-process.html#cb105-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0001</span>)</span>
+<span id="cb105-6"><a href="counting-process.html#cb105-6" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">=</span> <span class="fu">subset</span>(wave01, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb105-7"><a href="counting-process.html#cb105-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-8"><a href="counting-process.html#cb105-8" aria-hidden="true" tabindex="-1"></a><span class="co">#2nd wave</span></span>
+<span id="cb105-9"><a href="counting-process.html#cb105-9" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda&quot;</span>)</span>
+<span id="cb105-10"><a href="counting-process.html#cb105-10" aria-hidden="true" tabindex="-1"></a>wave02 <span class="ot">&lt;-</span> da21600<span class="fl">.0005</span></span>
+<span id="cb105-11"><a href="counting-process.html#cb105-11" aria-hidden="true" tabindex="-1"></a>wave02<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb105-12"><a href="counting-process.html#cb105-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0005</span>)</span>
+<span id="cb105-13"><a href="counting-process.html#cb105-13" aria-hidden="true" tabindex="-1"></a>w2 <span class="ot">=</span> <span class="fu">subset</span>(wave02, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb105-14"><a href="counting-process.html#cb105-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-15"><a href="counting-process.html#cb105-15" aria-hidden="true" tabindex="-1"></a><span class="co">#3rd wave</span></span>
+<span id="cb105-16"><a href="counting-process.html#cb105-16" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda&quot;</span>)</span>
+<span id="cb105-17"><a href="counting-process.html#cb105-17" aria-hidden="true" tabindex="-1"></a>wave03 <span class="ot">&lt;-</span> da21600<span class="fl">.0008</span></span>
+<span id="cb105-18"><a href="counting-process.html#cb105-18" aria-hidden="true" tabindex="-1"></a>wave03<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb105-19"><a href="counting-process.html#cb105-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0008</span>)</span>
+<span id="cb105-20"><a href="counting-process.html#cb105-20" aria-hidden="true" tabindex="-1"></a>w3 <span class="ot">=</span> <span class="fu">subset</span>(wave03, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb105-21"><a href="counting-process.html#cb105-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-22"><a href="counting-process.html#cb105-22" aria-hidden="true" tabindex="-1"></a><span class="co">#4th wave</span></span>
+<span id="cb105-23"><a href="counting-process.html#cb105-23" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda&quot;</span>)</span>
+<span id="cb105-24"><a href="counting-process.html#cb105-24" aria-hidden="true" tabindex="-1"></a>wave04 <span class="ot">&lt;-</span> da21600<span class="fl">.0022</span></span>
+<span id="cb105-25"><a href="counting-process.html#cb105-25" aria-hidden="true" tabindex="-1"></a>wave04<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb105-26"><a href="counting-process.html#cb105-26" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0022</span>)</span>
+<span id="cb105-27"><a href="counting-process.html#cb105-27" aria-hidden="true" tabindex="-1"></a>w4 <span class="ot">=</span> <span class="fu">subset</span>(wave04, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb105-28"><a href="counting-process.html#cb105-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-29"><a href="counting-process.html#cb105-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 5th wave</span></span>
+<span id="cb105-30"><a href="counting-process.html#cb105-30" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda&quot;</span>)</span>
+<span id="cb105-31"><a href="counting-process.html#cb105-31" aria-hidden="true" tabindex="-1"></a>wave05 <span class="ot">&lt;-</span> da21600<span class="fl">.0032</span></span>
+<span id="cb105-32"><a href="counting-process.html#cb105-32" aria-hidden="true" tabindex="-1"></a>wave05<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb105-33"><a href="counting-process.html#cb105-33" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0032</span>)</span>
+<span id="cb105-34"><a href="counting-process.html#cb105-34" aria-hidden="true" tabindex="-1"></a>w5 <span class="ot">=</span> <span class="fu">subset</span>(wave05, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
+<p>The complete list of respondents can be obtained by aggregating all WX datasets and then getting the unique AID.</p>
+<ul>
+<li>The numbers of cases for both occasions are the same. It looks like the first wave contains all respondents - no additional respondents were added.</li>
+<li>To check this observation, we will see both AID from the first wave and All matched.</li>
+<li>Because the n didn’t change, we confirmed that WAVE01 contains all respondents of the study.</li>
+</ul>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="counting-process.html#cb106-1" aria-hidden="true" tabindex="-1"></a>AH01 <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">subset</span>(<span class="fu">rbind</span>(w1, w2, w3, w4, w5), <span class="at">select =</span> <span class="fu">c</span>(AID)))</span>
+<span id="cb106-2"><a href="counting-process.html#cb106-2" aria-hidden="true" tabindex="-1"></a>test01 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(wave01, AH01, <span class="at">by=</span><span class="st">&quot;AID&quot;</span>)</span></code></pre></div>
+<div id="generate-a-complete-framework-with-aid-and-wave-optional" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Generate a complete framework with <em>AID</em> and <em>wave</em> (Optional)<a href="counting-process.html#generate-a-complete-framework-with-aid-and-wave-optional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>I personally prefer working with a “complete framework” containing all <em>AID</em> and <em>wave</em>.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="counting-process.html#cb107-1" aria-hidden="true" tabindex="-1"></a>lf01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(w1, w2, w3, w4, w5)</span>
+<span id="cb107-2"><a href="counting-process.html#cb107-2" aria-hidden="true" tabindex="-1"></a>lf <span class="ot">&lt;-</span> lf01[<span class="fu">order</span>(lf01<span class="sc">$</span>AID, lf01<span class="sc">$</span>wave), ]</span></code></pre></div>
+<p>Here is the merged (“stacked”) dataset.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="counting-process.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lf01)</span></code></pre></div>
+<pre><code>##        AID wave
+## 1 57100270    1
+## 2 57101310    1
+## 3 57103171    1
+## 4 57103869    1
+## 5 57104553    1
+## 6 57104649    1</code></pre>
+<p>Sorting by <em>AID</em> and <em>wave</em>, we can easily identify the data structure by <em>AID</em> and <em>wave</em>. This <strong>lf</strong> dataset is what I call a “framework” of this data source, which is the one that will be used whenever combining or merging datasets.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="counting-process.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lf)</span></code></pre></div>
+<pre><code>##            AID wave
+## 1     57100270    1
+## 11339 57100270    3
+## 2     57101310    1
+## 6505  57101310    2
+## 11340 57101310    3
+## 16221 57101310    4</code></pre>
+<p>Keep the number of cases (n = 25530) for your record. This number should be the number you expect whenever you merge or stack datasets.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="counting-process.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(lf)</span></code></pre></div>
+<pre><code>##       n
+## 1 25530</code></pre>
+</div>
+<div id="time-variant-variables-from-each-wave" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Time-variant variables from each wave<a href="counting-process.html#time-variant-variables-from-each-wave" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this practice, we will select and rename self-rated health (for all 5-wave) and appetite (only for <span class="math inline">\(1^{st}\)</span> and <span class="math inline">\(2^{nd}\)</span> waves) measures.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="counting-process.html#cb114-1" aria-hidden="true" tabindex="-1"></a>srh1 <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
+<span id="cb114-2"><a href="counting-process.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb114-3"><a href="counting-process.html#cb114-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb114-4"><a href="counting-process.html#cb114-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H1GH1,</span>
+<span id="cb114-5"><a href="counting-process.html#cb114-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H1FS2)</span>
+<span id="cb114-6"><a href="counting-process.html#cb114-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-7"><a href="counting-process.html#cb114-7" aria-hidden="true" tabindex="-1"></a>srh2 <span class="ot">&lt;-</span> wave02 <span class="sc">%&gt;%</span></span>
+<span id="cb114-8"><a href="counting-process.html#cb114-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb114-9"><a href="counting-process.html#cb114-9" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb114-10"><a href="counting-process.html#cb114-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H2GH1,</span>
+<span id="cb114-11"><a href="counting-process.html#cb114-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H2GH22)</span>
+<span id="cb114-12"><a href="counting-process.html#cb114-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-13"><a href="counting-process.html#cb114-13" aria-hidden="true" tabindex="-1"></a>srh3 <span class="ot">&lt;-</span> wave03 <span class="sc">%&gt;%</span></span>
+<span id="cb114-14"><a href="counting-process.html#cb114-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb114-15"><a href="counting-process.html#cb114-15" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb114-16"><a href="counting-process.html#cb114-16" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H3GH1)</span>
+<span id="cb114-17"><a href="counting-process.html#cb114-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-18"><a href="counting-process.html#cb114-18" aria-hidden="true" tabindex="-1"></a>srh4 <span class="ot">&lt;-</span> wave04 <span class="sc">%&gt;%</span></span>
+<span id="cb114-19"><a href="counting-process.html#cb114-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb114-20"><a href="counting-process.html#cb114-20" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb114-21"><a href="counting-process.html#cb114-21" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H4GH1)</span>
+<span id="cb114-22"><a href="counting-process.html#cb114-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-23"><a href="counting-process.html#cb114-23" aria-hidden="true" tabindex="-1"></a>srh5 <span class="ot">&lt;-</span> wave05 <span class="sc">%&gt;%</span></span>
+<span id="cb114-24"><a href="counting-process.html#cb114-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb114-25"><a href="counting-process.html#cb114-25" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb114-26"><a href="counting-process.html#cb114-26" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H5ID1)</span></code></pre></div>
+<p>Please note that how to name the “temporary” datasets. I found that using the combination of ‘variable name + wave’ minimizes any confusions later.</p>
+<p>The ‘rbind’ function requires all datasets have a same numbers of columns. ‘setDT’ and ‘fill=TRUE’ are the functions from a ‘data.table’ package that override this requirement.</p>
+<p>Now, we have created a <em>long-form dataset (i.e., srh_TV) from five sets of cross-sectional datasets</em>.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="counting-process.html#cb115-1" aria-hidden="true" tabindex="-1"></a>srh_TV01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">setDT</span>(srh1), <span class="fu">setDT</span>(srh2), <span class="fu">setDT</span>(srh3), <span class="fu">setDT</span>(srh4), <span class="fu">setDT</span>(srh5), <span class="at">fill=</span><span class="cn">TRUE</span>)</span>
+<span id="cb115-2"><a href="counting-process.html#cb115-2" aria-hidden="true" tabindex="-1"></a>srh_TV <span class="ot">&lt;-</span> srh_TV01[<span class="fu">order</span>(srh_TV01<span class="sc">$</span>AID, srh_TV01<span class="sc">$</span>wave), ]</span>
+<span id="cb115-3"><a href="counting-process.html#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6504, 4834, 4882, 5114, 4196, 25530</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="counting-process.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(srh_TV)</span></code></pre></div>
+<pre><code>##         AID  wave             a_srh       a_poorappetite
+##      &lt;fctr&gt; &lt;num&gt;            &lt;fctr&gt;               &lt;fctr&gt;
+## 1: 57100270     1      (3) (3) Good (0) (0) Never/rarely
+## 2: 57100270     3 (1) (1) Excellent                 &lt;NA&gt;
+## 3: 57101310     1      (4) (4) Fair    (1) (1) Sometimes
+## 4: 57101310     2      (4) (4) Fair    (4) (4) Every day
+## 5: 57101310     3 (2) (2) Very good                 &lt;NA&gt;
+## 6: 57101310     4      (3) (3) Good                 &lt;NA&gt;</code></pre>
+</div>
+<div id="time-invariant" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Time-invariant<a href="counting-process.html#time-invariant" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By definition, when a variable is time-invariant, only one measure from any variable should be applied to all other waves. In this example, we select <em>sex</em> from the first wave (because of completeness), which will be applied to the whole long-form dataset.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="counting-process.html#cb118-1" aria-hidden="true" tabindex="-1"></a>demo_TI <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
+<span id="cb118-2"><a href="counting-process.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb118-3"><a href="counting-process.html#cb118-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_sex&quot;</span> <span class="ot">=</span> BIO_SEX)</span></code></pre></div>
+</div>
+<div id="merging-datasets" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Merging datasets<a href="counting-process.html#merging-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once you have selected, created, and modified all required variables by waves, stacking all waves datasets will generate a long-form dataset per wave-person as long as you have keep <em>AID</em> and <em>wave</em> variables for all datasets.</p>
+<p>In this example, we’ve created three datasets - <strong>lf</strong> (a framework), <strong>demo_TI</strong> (time-invariant), and <strong>srh_TV</strong> (time-variant).</p>
+<ul>
+<li>Framework + time-invariant (i.e., <strong>lf</strong> (a framework) and <strong>demo_TI</strong> (time-invariant))</li>
+</ul>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="counting-process.html#cb119-1" aria-hidden="true" tabindex="-1"></a>Final01 <span class="ot">&lt;-</span> <span class="fu">merge</span>(lf, demo_TI, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>))</span>
+<span id="cb119-2"><a href="counting-process.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Final01)</span></code></pre></div>
+<pre><code>##        AID wave          a_sex
+## 1 57100270    1 (2) (2) Female
+## 2 57100270    3 (2) (2) Female
+## 3 57101310    1 (2) (2) Female
+## 4 57101310    2 (2) (2) Female
+## 5 57101310    3 (2) (2) Female
+## 6 57101310    4 (2) (2) Female</code></pre>
+<ul>
+<li>Framework + time-invariant + time-variant (i.e., <strong>Final01</strong> + <strong>srh_TV</strong> (time-variant))</li>
+</ul>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="counting-process.html#cb121-1" aria-hidden="true" tabindex="-1"></a>Final02 <span class="ot">&lt;-</span> <span class="fu">merge</span>(Final01, srh_TV, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>, <span class="st">&quot;wave&quot;</span>))</span>
+<span id="cb121-2"><a href="counting-process.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Final02)</span></code></pre></div>
+<pre><code>##        AID wave          a_sex             a_srh       a_poorappetite
+## 1 57100270    1 (2) (2) Female      (3) (3) Good (0) (0) Never/rarely
+## 2 57100270    3 (2) (2) Female (1) (1) Excellent                 &lt;NA&gt;
+## 3 57101310    1 (2) (2) Female      (4) (4) Fair    (1) (1) Sometimes
+## 4 57101310    2 (2) (2) Female      (4) (4) Fair    (4) (4) Every day
+## 5 57101310    3 (2) (2) Female (2) (2) Very good                 &lt;NA&gt;
+## 6 57101310    4 (2) (2) Female      (3) (3) Good                 &lt;NA&gt;</code></pre>
+</div>
+<div id="define-event-enter-and-exit" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Define <em>event</em>, <em>enter</em>, and <em>exit</em><a href="counting-process.html#define-event-enter-and-exit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <em>event</em> can be defined as your outcomes. Depending on the nature of outcomes, it could be a multiple or repetitive events, requiring more complex survival modeling with more assumptions.</p>
+<ul>
+<li>Using lag/lead(wave)</li>
+</ul>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="counting-process.html#cb123-1" aria-hidden="true" tabindex="-1"></a>Final03 <span class="ot">&lt;-</span> Final02 <span class="sc">%&gt;%</span> </span>
+<span id="cb123-2"><a href="counting-process.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AID) <span class="sc">%&gt;%</span> </span>
+<span id="cb123-3"><a href="counting-process.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb123-4"><a href="counting-process.html#cb123-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">enter =</span> <span class="fu">lag</span>(wave),</span>
+<span id="cb123-5"><a href="counting-process.html#cb123-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">exit =</span> wave</span>
+<span id="cb123-6"><a href="counting-process.html#cb123-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb123-7"><a href="counting-process.html#cb123-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb123-8"><a href="counting-process.html#cb123-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-9"><a href="counting-process.html#cb123-9" aria-hidden="true" tabindex="-1"></a>Final03<span class="sc">$</span>enter[Final03<span class="sc">$</span>wave <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(Final03<span class="sc">$</span>enter)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+<p>Because we used <em>wave</em> as an example, it may look more complicated than necessary - for example, we may simply use <code>enter = exit - 1</code>. However, this lag/lead function is required when working with the actual date which interval is not always equal to 1.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="survival-analyses-introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="survival-models-specification-estimation-and-interpretation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-Survival02.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
